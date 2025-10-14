@@ -1,109 +1,63 @@
-# Pick n Pay Advanced Analytics System
+# Project Documentation
 
 ## Overview
-A retail analytics platform for Pick n Pay with multi-store support and separate analytics pages. The system captures, cleans, and analyzes transaction data to provide actionable business insights.
+This project is a web application built using Flask that provides analytics and reporting features for retail stores. Users can upload their SQLite databases, view sales trends, customer segments, top products, and store performance metrics. The application also generates PDF reports for various analytics.
 
-## Features
-- Multi-store database upload system
-- Separate pages for each analytics section
-- Sales trends analysis and forecasting
-- Customer segmentation (including RFM analysis)
-- Top products tracking
-- Store performance metrics
-- Interactive dashboards with dynamic charts
-- Data cleaning and preprocessing (duplicate removal, missing value handling, normalization)
-- Predictive modeling (sales forecasting, churn detection)
-- Loyalty and demographic enrichment
-
-## Installation
-
-1. **Clone the repository:**
-   ```sh
-   git clone <your-repo-url>
-   cd project
-   ```
-
-2. **Create a virtual environment:**
-   ```sh
-   python -m venv .venv
-   ```
-
-3. **Activate the environment:**
-   - On Windows:
-     ```sh
-     .venv\Scripts\activate
-     ```
-   - On Linux/Mac:
-     ```sh
-     source .venv/bin/activate
-     ```
-
-4. **Install dependencies:**
-   ```sh
-   pip install -r requirements.txt
-   ```
-
-5. **Initialize the sample database:**
-   ```sh
-   python init_db.py
-   ```
-
-6. **Run the application:**
-   ```sh
-   python app.py
-   ```
-
-## Usage
-
-1. Login with credentials:  
-   **Username:** `admin`  
-   **Password:** `admin123`
-
-2. Select a store (1-5) from the dashboard.
-
-3. Upload your SQLite database file (see schema below).
-
-4. Navigate through the analytics pages:
-   - Sales Trends
-   - Customer Segmentation
-   - Top Products
-   - Store Performance
-
-## Database Schema
-
-Your SQLite database should contain the following tables and recommended columns:
-
-- **transactions**
-  - `id` (INTEGER, PRIMARY KEY)
-  - `customer_id` (INTEGER)
-  - `date` (TEXT, format: YYYY-MM-DD)
-  - `total_amount` (REAL)
-  - `store_id` (INTEGER)
-- **customers**
-  - `id` (INTEGER, PRIMARY KEY)
-  - `name` (TEXT)
-  - `gender` (TEXT)
-  - `age` (INTEGER)
-  - `loyalty_id` (TEXT)
-- **products**
-  - `id` (INTEGER, PRIMARY KEY)
-  - `name` (TEXT)
-  - `category` (TEXT)
-  - `price` (REAL)
-- **transaction_items**
-  - `id` (INTEGER, PRIMARY KEY)
-  - `transaction_id` (INTEGER)
-  - `product_id` (INTEGER)
-  - `quantity` (INTEGER)
-  - `price` (REAL)
-
-> **Note:** You can use `init_db.py` to generate a sample database with the correct schema.
+## Project Structure
+```
+project
+├── app.py                     # Main application logic using Flask
+├── requirements.txt           # Python dependencies required for the application
+├── config.py                  # Configuration settings for the application
+├── utils                      # Utility functions and modules
+│   ├── __init__.py           # Marks the utils directory as a package
+│   ├── analytics.py           # Functions for data analysis
+│   ├── database_utils.py      # Utility functions for database interactions
+│   ├── helpers.py             # Helper functions used throughout the application
+│   └── pdf_generator.py       # Functionality for generating PDF reports
+├── templates                  # HTML templates for the application
+│   ├── login.html             # Template for the login page
+│   ├── store_selection.html    # Template for selecting a store
+│   ├── upload_database.html    # Template for uploading a database
+│   ├── sales_trends.html       # Template for displaying sales trends
+│   ├── customer_segments.html   # Template for displaying customer segments
+│   ├── top_products.html       # Template for displaying top products
+│   ├── store_performance.html   # Template for displaying store performance
+│   └── dashboard.html          # Template for the dashboard
+├── README.md                  # Documentation for the project
+└── render.yaml                # Configuration for deploying the application on Render.com
+```
 
 ## Requirements
+The application requires the following Python packages:
+- Flask
+- SQLite
+- NumPy
+- Pandas
 
-- Python 3.8 or higher
-- See `requirements.txt` for Python package dependencies
+These dependencies are listed in the `requirements.txt` file.
 
-## Support
+## Deployment
+To host the application on Render.com, the `render.yaml` file is configured as follows:
 
-For issues or questions, please contact the project maintainer.
+```yaml
+version: 1
+services:
+  - type: web
+    name: your-app-name
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    autoDeploy: true
+```
+
+Make sure to replace `your-app-name` with the desired name for your application.
+
+## Usage
+1. Clone the repository.
+2. Install the required dependencies using `pip install -r requirements.txt`.
+3. Run the application using `python app.py`.
+4. Access the application in your web browser at `http://localhost:5000`.
+
+## License
+This project is licensed under the MIT License.

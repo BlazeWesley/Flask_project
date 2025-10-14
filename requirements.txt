@@ -1,5 +1,6 @@
-Flask
-pandas
-numpy
-gunicorn==21.2.0
-scikit-learn
+Flask==2.2.3
+numpy==1.23.5
+pandas==1.5.3
+sqlite3==3.36.0
+gunicorn==20.1.0
+```
